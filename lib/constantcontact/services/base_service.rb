@@ -10,34 +10,6 @@ module ConstantContact
       class << self
         attr_accessor :api_key, :access_token
 
-        protected
-
-        # Return required headers for making an http request with Constant Contact
-        # @param [String] content_type - The MIME type of the body of the request, default is 'application/json'
-        # @return [Hash] - authorization headers
-        def get_headers(content_type = 'application/json')
-          {
-            :content_type   => content_type,
-            :accept         => 'application/json',
-            :authorization  => "Bearer #{BaseService.access_token}",
-            :user_agent     => "AppConnect Ruby SDK v#{ConstantContact::SDK::VERSION} (#{RUBY_DESCRIPTION})",
-            :x_ctct_request_source => "sdk.ruby.#{ConstantContact::SDK::VERSION}"
-          }
-        end
-
-
-        # returns the id of a ConstantContact component
-        def get_id_for(obj)
-          if obj.kind_of? ConstantContact::Components::Component
-            obj.id
-          elsif obj.kind_of? Hash
-            obj["id"]
-          else
-            obj
-          end
-        end
-
-
         # Build a url from the base url and query parameters hash. Query parameters
         # should not be URL encoded because this method will handle that
         # @param [String] url - The base url
@@ -61,6 +33,33 @@ module ConstantContact
 
           params['api_key'] = BaseService.api_key
           url += '?' + Util::Helpers.http_build_query(params)
+        end
+
+        # Return required headers for making an http request with Constant Contact
+        # @param [String] content_type - The MIME type of the body of the request, default is 'application/json'
+        # @return [Hash] - authorization headers
+        def get_headers(content_type = 'application/json')
+          {
+            :content_type   => content_type,
+            :accept         => 'application/json',
+            :authorization  => "Bearer #{BaseService.access_token}",
+            :user_agent     => "AppConnect Ruby SDK v#{ConstantContact::SDK::VERSION} (#{RUBY_DESCRIPTION})",
+            :x_ctct_request_source => "sdk.ruby.#{ConstantContact::SDK::VERSION}"
+          }
+        end
+
+        protected
+
+
+        # returns the id of a ConstantContact component
+        def get_id_for(obj)
+          if obj.kind_of? ConstantContact::Components::Component
+            obj.id
+          elsif obj.kind_of? Hash
+            obj["id"]
+          else
+            obj
+          end
         end
 
       end

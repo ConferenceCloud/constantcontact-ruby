@@ -38,7 +38,7 @@ module ConstantContact
             Components::Event.create_summary(event)
           end
 
-          Components::ResultSet.new(events, body['meta'])
+          Components::ResultSet.new(events, body['meta'], Components::Event)
         end
 
 
@@ -189,11 +189,11 @@ module ConstantContact
         # Get a set of event registrants
         # @param [Integer] event - Valid event id
         # @return [ResultSet<Registrant>]
-        def get_registrants(event)
+        def get_registrants(event, opts = {})
           event_id  = event.kind_of?(ConstantContact::Components::Event) ? event.id : event
           url = Util::Config.get('endpoints.base_url') +
                 sprintf(Util::Config.get('endpoints.event_registrants'), event_id)
-          url = build_url(url)
+          url = build_url(url, opts)
 
           response = RestClient.get(url, get_headers())
           body = JSON.parse(response.body)

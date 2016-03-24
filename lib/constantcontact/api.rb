@@ -549,8 +549,8 @@ module ConstantContact
 
     # Get a list of events
     # @return [ResultSet<Event>]
-    def get_events()
-      Services::EventSpotService.get_events()
+    def get_events(opts = {})
+      Services::EventSpotService.get_events(opts)
     end
 
 
@@ -641,8 +641,8 @@ module ConstantContact
     # Get a set of event registrants
     # @param [Event] event - Event fee corresponds to
     # @return [ResultSet<Registrant>]
-    def get_event_registrants(event)
-      Services::EventSpotService.get_registrants(event)
+    def get_event_registrants(event, opts = {})
+      Services::EventSpotService.get_registrants(event, opts)
     end
 
 

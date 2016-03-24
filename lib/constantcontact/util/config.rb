@@ -13,6 +13,7 @@ module ConstantContact
       @props = {
         # REST endpoints
         :endpoints => {
+          :api_url                        => 'https://api.constantcontact.com',
           :base_url                       => 'https://api.constantcontact.com/v2/',
 
           :activity                       => 'activities/%s',
